@@ -2,14 +2,15 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
-
+# 1. .env파일에서 환경변수 로드
 load_dotenv()
-
+# 2. 오픈AI API키 가져오기
 api_key = os.environ.get('OPENAI_API_KEY')
-
+# 3. 오픈AI 클라이언트 초기화 
 client = OpenAI(api_key=api_key)
 
 def get_chat_completion(prompt, model="gpt-5-mini"):
+  # 4. 챗 컴프리션 API 호출
   response = client.chat.completions.create(
     model=model,
     messages=[
@@ -17,10 +18,13 @@ def get_chat_completion(prompt, model="gpt-5-mini"):
       {"role":"user","content":prompt}
     ]
   )
+  # 5.응답 텍스트 반환
   return response.choices[0].message.content
 
 if __name__=="__main__":
+  # 6. 사용자 입력받기
   user_prompt=input("AI에게 물어볼 질문을 입력하세요: ")
+  # 7. AI 응답받기
   response= get_chat_completion(user_prompt)
   print("\n")
   print("\nAI 응답:")
